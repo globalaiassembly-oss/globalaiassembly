@@ -18,7 +18,6 @@ const MissionSection = () =>
         Our Mission
       </motion.h2>
       <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-muted-foreground leading-relaxed">The mission of the Global AI Assembly is to educate and empower citizens to take an active role in AI and collect public opinion for the AI alignment process, ensuring that its development is driven by values of democracy, safety, and justice and benefit to global citizens.
-      <span className="font-semibold text-foreground">Global AI Assembly</span> is to educate and empower citizens to take an active role in the governance of AI and collect public opinion for the AI alignment process, ensuring that its development is driven by values of democracy, safety, and justice.
       </motion.p>
     </div>
   </section>;
