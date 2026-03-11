@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 25% 10%;
 
-    --primary: 170 80% 36%;
+    --primary: 210 60% 65%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 220 15% 93%;
@@ -24,20 +24,20 @@
     --muted: 220 15% 93%;
     --muted-foreground: 220 10% 46%;
 
-    --accent: 170 60% 92%;
-    --accent-foreground: 170 80% 20%;
+    --accent: 210 50% 92%;
+    --accent-foreground: 210 60% 25%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 15% 88%;
     --input: 220 15% 88%;
-    --ring: 170 80% 36%;
+    --ring: 210 60% 65%;
 
     --radius: 0.75rem;
 
     --hero-dark: 220 40% 6%;
-    --hero-glow: 170 80% 36%;
+    --hero-glow: 210 60% 65%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -56,19 +56,19 @@
     --card-foreground: 210 20% 95%;
     --popover: 220 25% 9%;
     --popover-foreground: 210 20% 95%;
-    --primary: 170 80% 42%;
+    --primary: 210 60% 70%;
     --primary-foreground: 0 0% 100%;
     --secondary: 220 20% 15%;
     --secondary-foreground: 210 20% 95%;
     --muted: 220 20% 15%;
     --muted-foreground: 215 15% 60%;
-    --accent: 170 40% 15%;
-    --accent-foreground: 170 60% 80%;
+    --accent: 210 40% 15%;
+    --accent-foreground: 210 50% 80%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 20% 95%;
     --border: 220 20% 18%;
     --input: 220 20% 18%;
-    --ring: 170 80% 42%;
+    --ring: 210 60% 70%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -96,7 +96,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-300;
   }
 
   .section-padding {

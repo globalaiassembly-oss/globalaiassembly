@@ -5,13 +5,13 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-dark">
       {/* Background image */}
-      <div className="absolute inset-0 text-blue-400 bg-blue-400 border-blue-400 shadow-sm">
+      <div className="absolute inset-0">
         <img
           src={heroBg}
           alt=""
-          className="w-full h-full object-cover opacity-40" />
+          className="w-full h-full object-cover opacity-50" />
         
-        <div className="absolute inset-0 bg-gradient-to-b from-hero-dark/60 via-hero-dark/40 to-hero-dark border-dashed text-cyan-400 bg-blue-300 border-cyan-400" />
+        <div className="absolute inset-0 bg-gradient-to-b from-hero-dark/50 via-hero-dark/30 to-hero-dark" />
       </div>
 
       {/* Content */}
