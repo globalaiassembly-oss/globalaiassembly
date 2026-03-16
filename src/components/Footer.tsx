@@ -14,7 +14,7 @@ const Footer = () =>
 
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity" href="https://globalaiassembly.lovable.app">
+      className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity" href="https://calendly.com/globalaiassembly/30min">
       
         Get Started
       </a>
