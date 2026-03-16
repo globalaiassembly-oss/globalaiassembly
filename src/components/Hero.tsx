@@ -40,14 +40,6 @@ const Hero = () => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-xl md:text-2xl font-heading font-semibold text-primary mb-6 tracking-wide">
-          We Democratize AI All Around the World
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
           className="text-lg md:text-xl text-primary-foreground/70 max-w-2xl mx-auto mb-4 italic">
           
@@ -77,8 +69,8 @@ const Hero = () => {
             Get Started
           </a>
           <a
-            href="#mission"
-            className="border border-primary-foreground/20 text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:bg-primary-foreground/5 transition-colors">
+
+            className="border border-primary-foreground/20 text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:bg-primary-foreground/5 transition-colors" href="https://globalaiassembly.lovable.app">
             
             Learn More
           </a>
