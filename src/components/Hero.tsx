@@ -61,10 +61,10 @@ const Hero = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center">
           
           <a
-            href="https://shaigexp.lemonsqueezy.com/buy/d4c60ad5-b5c2-44e2-8c44-637717e179b9"
+
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity">
+            className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity" href="https://calendly.com/globalaiassembly/30min">
             
             Get Started
           </a>
