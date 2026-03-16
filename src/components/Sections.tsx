@@ -17,8 +17,8 @@ const MissionSection = () =>
       <motion.h2 {...fadeUp} transition={{ duration: 0.6, delay: 0.1 }} className="text-3xl md:text-5xl font-heading font-bold text-foreground mb-6">
         Our Mission
       </motion.h2>
-      <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-muted-foreground leading-relaxed">The mission of the Global AI Assembly is to educate and empower citizens to take an active role in AI and collect public opinion for the AI alignment process, ensuring that its development is driven by values of democracy, safety, and justice and benefit to global citizens.
-      </motion.p>
+      <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-muted-foreground leading-relaxed">The mission of the Global AI Assembly is to democratize AI all around the world by educating and empowering citizens to take an active role in AI and collect public opinion for the AI alignment process, ensuring that its development is driven by values of democracy, safety, and justice and benefit to global citizens.
+    </motion.p>
     </div>
   </section>;
 
