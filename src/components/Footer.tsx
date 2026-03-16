@@ -7,8 +7,8 @@ const Footer = () => (
       <h3 className="font-heading font-bold text-xl text-primary-foreground mb-2">
         Global AI Assembly
       </h3>
-      <p className="text-primary-foreground/50 text-sm mb-8">
-        Redefining the future with collective intelligence.
+      <p className="text-primary-foreground/60 text-sm font-medium mb-8 italic">
+        We Democratize AI All Around the World
       </p>
       <a
         href="https://shaigexp.lemonsqueezy.com/buy/d4c60ad5-b5c2-44e2-8c44-637717e179b9"
