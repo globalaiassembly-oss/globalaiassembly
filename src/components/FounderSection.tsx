@@ -38,7 +38,7 @@ const FounderSection = () =>
           Féliana Citradewi
         </h3>
         <p className="text-primary font-semibold text-sm mb-3">Founder & CEO</p>
-        <p className="text-muted-foreground text-sm">ENA/INSP · Sciences Po · Sorbonne 
+        <p className="text-muted-foreground text-sm">ENA/INSP · Sciences Po · Sorbonne  
 MIT · HEC · Oxford
       </p>
       </motion.div>
