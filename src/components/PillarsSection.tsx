@@ -4,8 +4,8 @@ import { BookOpen, MessageSquare, FileText } from "lucide-react";
 const pillars = [
   {
     icon: BookOpen,
-    title: "Education",
-    desc: "Educate the public about AI as a powerful technology that should benefit all global citizens.",
+    title: "AI Literacy — Global AI Academy",
+    desc: "Short, practical, results-driven AI academies for global citizens. We help revolutionize outdated education systems that are too long, too theoretical, and not adapted to the AI era, future jobs, and fast-changing skills.",
     extra: (
       <div className="mt-4 pt-4 border-t border-border/50">
         <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">Regional Education Hubs</p>
@@ -21,14 +21,14 @@ const pillars = [
   },
   {
     icon: MessageSquare,
-    title: "Public Voice",
-    desc: "Collect public opinion on AI to help shape the future of AI in the most democratic way and understand how AI will impact the world.",
+    title: "Public Consultation",
+    desc: "Collect and amplify public opinion on AI through structured, democratic consultation — so the people most affected by AI have a real voice in how it's built and governed.",
     extra: null,
   },
   {
     icon: FileText,
-    title: "Policy & Recommendations",
-    desc: "Produce reports and recommendations for policymakers and leading AI companies worldwide so decisions and improvements align with what global citizens want.",
+    title: "Citizen-Facing AI Reports",
+    desc: "Publish quarterly, transparent, AI-generated reports that translate public input into actionable recommendations for policymakers and leading AI companies worldwide.",
     extra: null,
   },
 ];

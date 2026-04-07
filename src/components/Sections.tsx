@@ -112,7 +112,7 @@ const VisionSection = () =>
         Our Vision for the Future
       </motion.h2>
       <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-primary-foreground/70 leading-relaxed">
-        We envision a future where AI is democratically governed, serving all of humanity. Through the Global AI Assembly, we aim to align AI with human rights, sustainability, and social justice. By involving citizens, promoting transparency, and fostering global collaboration, AI can become a positive force — if we take an active role in shaping its governance now.
+        A world where AI is democratically governed, transparently reported, and shaped by the people it serves. Through open-source tools, global academies, and structured public consultation, we make that future possible — one citizen at a time.
       </motion.p>
     </div>
   </section>;
