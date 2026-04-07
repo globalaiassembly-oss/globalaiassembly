@@ -18,7 +18,7 @@ const MissionSection = () =>
         Our Mission
       </motion.h2>
       <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-muted-foreground leading-relaxed">
-        The Global AI Assembly is an open civic platform that democratizes AI literacy, public consultation, and citizen-facing reporting — through open-source infrastructure and global human collaboration. We empower citizens everywhere to understand, shape, and hold accountable the AI systems that affect their lives.
+        The mission of the Global AI Assembly is an open source platform to democratize AI all around the world by educating and empowering citizens to take advantage and an active role in AI and collect public opinion for the AI alignment process, ensuring that its development is driven by values of democracy, safety, and justice and benefit to global citizens.
       </motion.p>
     </div>
   </section>;

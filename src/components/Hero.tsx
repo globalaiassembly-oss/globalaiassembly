@@ -49,8 +49,15 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-base md:text-lg text-primary-foreground/60 max-w-2xl mx-auto mb-10 leading-relaxed">
-          AI literacy, public consultation, and citizen-facing reports — powered by open-source infrastructure and global human collaboration.
+          className="text-base md:text-lg text-primary-foreground/60 max-w-2xl mx-auto mb-4 italic leading-relaxed">
+          "The world will not be destroyed by those who do evil, but by those who watch them without doing anything."
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="text-sm text-primary-foreground/50 mb-10">
+          — Albert Einstein
         </motion.p>
 
         <motion.div
