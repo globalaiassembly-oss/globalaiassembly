@@ -24,7 +24,7 @@ const Hero = () => {
           
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
           <span className="text-sm text-primary font-medium">
-            A Democratic Forum for AI Governance
+            Open Civic AI Platform
           </span>
         </motion.div>
 
