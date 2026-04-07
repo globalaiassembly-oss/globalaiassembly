@@ -24,7 +24,7 @@ const Hero = () => {
           
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
           <span className="text-sm text-primary font-medium">
-            A Democratic Forum for AI Governance
+            Open Civic AI Platform
           </span>
         </motion.div>
 
@@ -40,18 +40,17 @@ const Hero = () => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="text-lg md:text-xl text-primary-foreground/70 max-w-2xl mx-auto mb-4 italic">
-          
-          "The world will not be destroyed by those who do evil, but by those who watch them without doing anything."
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-xl md:text-2xl text-primary-foreground/80 max-w-3xl mx-auto mb-4 font-medium">
+          We Democratize AI All Around the World
         </motion.p>
+
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="text-sm text-primary-foreground/50 mb-10">
-          
-          — Albert Einstein
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="text-base md:text-lg text-primary-foreground/60 max-w-2xl mx-auto mb-10 leading-relaxed">
+          AI literacy, public consultation, and citizen-facing reports — powered by open-source infrastructure and global human collaboration.
         </motion.p>
 
         <motion.div

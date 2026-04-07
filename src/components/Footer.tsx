@@ -8,7 +8,7 @@ const Footer = () =>
         Global AI Assembly
       </h3>
       <p className="text-primary-foreground/50 text-sm mb-8">
-        Redefining the future with collective intelligence.
+        We Democratize AI All Around the World
       </p>
       <a
 

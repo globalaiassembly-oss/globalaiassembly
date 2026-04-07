@@ -17,8 +17,9 @@ const MissionSection = () =>
       <motion.h2 {...fadeUp} transition={{ duration: 0.6, delay: 0.1 }} className="text-3xl md:text-5xl font-heading font-bold text-foreground mb-6">
         Our Mission
       </motion.h2>
-      <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-muted-foreground leading-relaxed">The mission of the Global AI Assembly is to democratize AI all around the world by educating and empowering citizens to take an active role in AI and collect public opinion for the AI alignment process, ensuring that its development is driven by values of democracy, safety, and justice and benefit to global citizens.
-    </motion.p>
+      <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-muted-foreground leading-relaxed">
+        The Global AI Assembly is an open civic platform that democratizes AI literacy, public consultation, and citizen-facing reporting — through open-source infrastructure and global human collaboration. We empower citizens everywhere to understand, shape, and hold accountable the AI systems that affect their lives.
+      </motion.p>
     </div>
   </section>;
 
@@ -111,7 +112,7 @@ const VisionSection = () =>
         Our Vision for the Future
       </motion.h2>
       <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-primary-foreground/70 leading-relaxed">
-        We envision a future where AI is democratically governed, serving all of humanity. Through the Global AI Assembly, we aim to align AI with human rights, sustainability, and social justice. By involving citizens, promoting transparency, and fostering global collaboration, AI can become a positive force — if we take an active role in shaping its governance now.
+        A world where AI is democratically governed, transparently reported, and shaped by the people it serves. Through open-source tools, global academies, and structured public consultation, we make that future possible — one citizen at a time.
       </motion.p>
     </div>
   </section>;
