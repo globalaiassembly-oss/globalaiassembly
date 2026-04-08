@@ -16,7 +16,7 @@ const Footer = () =>
       rel="noopener noreferrer"
       className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity" href="https://calendly.com/globalaiassembly/30min">
       
-        Get Started
+        Join Our Community
       </a>
       <p className="text-primary-foreground/30 text-xs mt-10">
         © {new Date().getFullYear()} Global AI Assembly. All rights reserved.
