@@ -72,7 +72,7 @@ const Hero = () => {
             rel="noopener noreferrer"
             className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity" href="https://calendly.com/globalaiassembly/30min">
             
-            Get Started
+            Join Our Community
           </a>
           <a
 

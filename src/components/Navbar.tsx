@@ -33,7 +33,7 @@ const Navbar = () => {
           rel="noopener noreferrer"
           className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity" href="https://calendly.com/globalaiassembly/30min">
           
-          Get Started
+          Join Our Community
         </a>
       </div>
     </motion.nav>);
