@@ -67,18 +67,16 @@ const Hero = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center">
           
           <a
-
+            href="https://calendly.com/globalaiassembly/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity" href="https://calendly.com/globalaiassembly/30min">
-            
-            Join Our Community
+            className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity">
+            Book a Call
           </a>
           <a
-
-            className="border border-primary-foreground/20 text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:bg-primary-foreground/5 transition-colors" href="https://globalaiassembly.lovable.app">
-            
-            Learn More
+            href="#newsletter"
+            className="border border-primary-foreground/20 text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:bg-primary-foreground/5 transition-colors">
+            Subscribe to the Brief
           </a>
         </motion.div>
       </div>
