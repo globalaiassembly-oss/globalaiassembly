@@ -19,7 +19,9 @@ const Footer = () =>
           Book a Call
         </a>
         <a
-          href="#newsletter"
+          href="https://globalaiassembly.substack.com/subscribe"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-block border border-primary-foreground/20 text-primary-foreground px-8 py-3 rounded-lg text-sm font-semibold hover:bg-primary-foreground/5 transition-colors">
           Subscribe to the Brief
         </a>
