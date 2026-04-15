@@ -74,7 +74,9 @@ const Hero = () => {
             Book a Call
           </a>
           <a
-            href="#newsletter"
+            href="https://globalaiassembly.substack.com/subscribe"
+            target="_blank"
+            rel="noopener noreferrer"
             className="border border-primary-foreground/20 text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:bg-primary-foreground/5 transition-colors">
             Subscribe to the Brief
           </a>

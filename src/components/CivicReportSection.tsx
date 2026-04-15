@@ -72,23 +72,19 @@ const CivicReportSection = () => (
               <p className="text-xs text-muted-foreground">Free · Bi-weekly · Open-source</p>
             </div>
           </div>
-          {/* Newsletter signup form placeholder — ready to connect */}
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="w-full px-4 py-3 rounded-lg bg-background border border-border text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-            />
-            <button
-              type="submit"
-              className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+          <div className="space-y-4">
+            <a
+              href="https://globalaiassembly.substack.com/subscribe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-primary text-primary-foreground px-6 py-3 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity text-center"
             >
               Subscribe to the Brief
-            </button>
+            </a>
             <p className="text-xs text-muted-foreground text-center">
-              No spam. Unsubscribe anytime. Your data stays yours.
+              Free · No spam · Unsubscribe anytime.
             </p>
-          </form>
+          </div>
         </motion.div>
       </div>
     </div>
