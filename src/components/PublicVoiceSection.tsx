@@ -43,7 +43,9 @@ const PublicVoiceSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
-        href="#survey"
+        href="https://docs.google.com/forms/d/e/1FAIpQLScAARMMWHPbm_FSMbRXUhXTCjcM-XkbJGsRlXgI-nyI2mdfZg/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
         className="inline-block bg-primary text-primary-foreground px-8 py-3.5 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity"
       >
         Take the 2-Minute Survey
