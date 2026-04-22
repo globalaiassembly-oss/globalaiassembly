@@ -97,7 +97,7 @@ const AIBriefingsSection = () => {
   }, []);
 
   const filtered = items.filter((it) => matchesCategory(it, activeFilter));
-  const showFallback = !loading && items.length === 0;
+  const showFallback = false;
 
   return (
     <section id="briefings" className="section-padding bg-background">
@@ -198,7 +198,7 @@ const AIBriefingsSection = () => {
         )}
 
         {/* Real news cards */}
-        {!loading && items.length > 0 && (
+        {!loading && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {filtered.map((item, i) => (
               <motion.article
@@ -252,7 +252,7 @@ const AIBriefingsSection = () => {
             ))}
             {filtered.length === 0 && (
               <p className="col-span-full text-center text-muted-foreground text-sm italic">
-                No briefings match this filter yet.
+                {items.length === 0 ? "No news yet — check back soon." : "No briefings match this filter."}
               </p>
             )}
           </div>
