@@ -70,12 +70,16 @@ const matchesCategory = (item: NewsItem, label: string) => {
 const AIBriefingsSection = () => {
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeFilter, setActiveFilter] = useState<string>("All");  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>("All");
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
     const load = async () => {
-      setLoading(true); setFetchError(null); console.log("[AIBriefings] Fetching from ai_news..."); console.log("[AIBriefings] Supabase URL:", import.meta.env.VITE_SUPABASE_URL);
+      setLoading(true);
+      setFetchError(null);
+      console.log("[AIBriefings] Fetching from ai_news...");
+      console.log("[AIBriefings] Supabase URL:", import.meta.env.VITE_SUPABASE_URL);
       try {
         const { data, error } = await supabase
           .from("ai_news")
@@ -83,9 +87,14 @@ const AIBriefingsSection = () => {
           .order("published_at", { ascending: false })
           .limit(8);
         if (error) throw error;
-        console.log("[AIBriefings] Response — data:", data, "error:", error); if (isMounted) setItems((data as NewsItem[]) || []);
+        console.log("[AIBriefings] Response — data:", data, "error:", error);
+        if (isMounted) setItems((data as NewsItem[]) || []);
       } catch (err) {
-        console.error("[AIBriefings] Fetch failed:", err); if (isMounted) { setFetchError(err instanceof Error ? err.message : String(err)); setItems([]); }
+        console.error("[AIBriefings] Fetch failed:", err);
+        if (isMounted) {
+          setFetchError(err instanceof Error ? err.message : String(err));
+          setItems([]);
+        }
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -97,7 +106,6 @@ const AIBriefingsSection = () => {
   }, []);
 
   const filtered = items.filter((it) => matchesCategory(it, activeFilter));
-  const showFallback = false;
 
   return (
     <section id="briefings" className="section-padding bg-background">
@@ -173,31 +181,13 @@ const AIBriefingsSection = () => {
           </div>
         )}
 
-        {fetchError && (<p className="text-center text-xs text-destructive mb-4 italic">Could not load briefings: {fetchError}</p>)} {/* Fallback: static "Coming soon" cards when table is empty */}
-        {showFallback && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((cat, i) => (
-              <motion.div
-                key={cat.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="glass-card p-6 flex flex-col hover:shadow-lg hover:shadow-primary/5 transition-shadow"
-              >
-                <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center mb-4">
-                  <cat.icon className="w-5 h-5 text-accent-foreground" />
-                </div>
-                <span className="text-xs font-bold uppercase tracking-wider text-primary mb-2">{cat.label}</span>
-                <h3 className="font-heading font-semibold text-base text-foreground mb-2">{cat.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed flex-1">{cat.desc}</p>
-                <span className="text-xs text-muted-foreground/60 mt-4 italic">Coming soon</span>
-              </motion.div>
-            ))}
-          </div>
+        {fetchError && (
+          <p className="text-center text-xs text-destructive mb-4 italic">
+            Could not load briefings: {fetchError}
+          </p>
         )}
 
-        {/* Real news cards */}
+        {/* News cards */}
         {!loading && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {filtered.map((item, i) => (
@@ -209,9 +199,6 @@ const AIBriefingsSection = () => {
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 className="glass-card p-6 flex flex-col hover:shadow-lg hover:shadow-primary/5 transition-shadow"
               >
-                <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center mb-4">
-                  <Brain className="w-5 h-5 text-accent-foreground" />
-                </div>
                 <h3 className="font-heading font-semibold text-base text-foreground mb-2 line-clamp-2">
                   {item.title}
                 </h3>
