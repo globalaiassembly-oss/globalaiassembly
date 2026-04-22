@@ -70,12 +70,12 @@ const matchesCategory = (item: NewsItem, label: string) => {
 const AIBriefingsSection = () => {
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeFilter, setActiveFilter] = useState<string>("All");
+  const [activeFilter, setActiveFilter] = useState<string>("All");  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
     const load = async () => {
-      setLoading(true);
+      setLoading(true); setFetchError(null); console.log("[AIBriefings] Fetching from ai_news..."); console.log("[AIBriefings] Supabase URL:", import.meta.env.VITE_SUPABASE_URL);
       try {
         const { data, error } = await supabase
           .from("ai_news")
@@ -83,9 +83,9 @@ const AIBriefingsSection = () => {
           .order("published_at", { ascending: false })
           .limit(8);
         if (error) throw error;
-        if (isMounted) setItems((data as NewsItem[]) || []);
+        console.log("[AIBriefings] Response — data:", data, "error:", error); if (isMounted) setItems((data as NewsItem[]) || []);
       } catch (err) {
-        if (isMounted) setItems([]);
+        console.error("[AIBriefings] Fetch failed:", err); if (isMounted) { setFetchError(err instanceof Error ? err.message : String(err)); setItems([]); }
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -173,7 +173,7 @@ const AIBriefingsSection = () => {
           </div>
         )}
 
-        {/* Fallback: static "Coming soon" cards when table is empty */}
+        {fetchError && (<p className="text-center text-xs text-destructive mb-4 italic">Could not load briefings: {fetchError}</p>)} {/* Fallback: static "Coming soon" cards when table is empty */}
         {showFallback && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((cat, i) => (
