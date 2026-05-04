@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import { MissionSection, ObjectivesSection, WhySection, VisionSection } from "@/components/Sections";
 import PillarsSection from "@/components/PillarsSection";
+import CurriculumSection from "@/components/CurriculumSection";
 import AIBriefingsSection from "@/components/AIBriefingsSection";
 import PublicVoiceSection from "@/components/PublicVoiceSection";
 import CivicReportSection from "@/components/CivicReportSection";
@@ -17,6 +18,7 @@ const Index = () => {
       <Hero />
       <MissionSection />
       <PillarsSection />
+      <CurriculumSection />
       <AIBriefingsSection />
       <PublicVoiceSection />
       <CivicReportSection />
