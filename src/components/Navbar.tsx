@@ -17,12 +17,12 @@ const Navbar = () => {
           </span>
         </a>
         <div className="hidden md:flex items-center gap-8">
-          {["Mission", "Objectives", "Vision", "Reports", "Founder"].map((item) =>
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium">
-            
+          {["Mission", "Objectives", "Vision", "Programs", "Reports", "Founder"].map((item) =>
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium">
+              
               {item}
             </a>
           )}
