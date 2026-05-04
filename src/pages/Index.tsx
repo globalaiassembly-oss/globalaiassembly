@@ -5,6 +5,7 @@ import PillarsSection from "@/components/PillarsSection";
 import AIBriefingsSection from "@/components/AIBriefingsSection";
 import PublicVoiceSection from "@/components/PublicVoiceSection";
 import CivicReportSection from "@/components/CivicReportSection";
+import TrainingSignupSection from "@/components/TrainingSignupSection";
 import ReportsSection from "@/components/ReportsSection";
 import FounderSection from "@/components/FounderSection";
 import Footer from "@/components/Footer";
@@ -19,6 +20,7 @@ const Index = () => {
       <AIBriefingsSection />
       <PublicVoiceSection />
       <CivicReportSection />
+      <TrainingSignupSection />
       <ObjectivesSection />
       <WhySection />
       <VisionSection />
