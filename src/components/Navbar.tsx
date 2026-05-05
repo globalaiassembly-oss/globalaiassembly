@@ -1,6 +1,15 @@
 import { motion } from "framer-motion";
 import logoIcon from "@/assets/logo-icon.png";
 
+const navLinks = [
+  { label: "Mission", href: "#mission" },
+  { label: "Objectives", href: "#objectives" },
+  { label: "Vision", href: "#vision" },
+  { label: "Programs", href: "#curriculum" },
+  { label: "Reports", href: "#reports" },
+  { label: "Founder", href: "#founder" },
+];
+
 const Navbar = () => {
   return (
     <motion.nav
@@ -17,27 +26,27 @@ const Navbar = () => {
           </span>
         </a>
         <div className="hidden md:flex items-center gap-8">
-          {["Mission", "Objectives", "Vision", "Programs", "Reports", "Founder"].map((item) =>
+          {navLinks.map((link) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium">
-              
-              {item}
+              key={link.label}
+              href={link.href}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
+            >
+              {link.label}
             </a>
-          )}
+          ))}
         </div>
         <a
-
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity" href="https://calendly.com/globalaiassembly/30min">
-          
+          className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+          href="https://calendly.com/globalaiassembly/30min"
+        >
           Join Our Community
         </a>
       </div>
-    </motion.nav>);
-
+    </motion.nav>
+  );
 };
 
 export default Navbar;
