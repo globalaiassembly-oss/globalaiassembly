@@ -43,7 +43,11 @@ const CurriculumSection = () => (
         className="flex flex-col items-center gap-5"
       >
         <Button asChild size="lg" className="gap-2">
-          <a href="/curriculum.pdf" download>
+          <a
+            href="/Global-AI-Assembly-Curriculum-2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Download className="w-5 h-5" />
             Download Program Brochure
           </a>
