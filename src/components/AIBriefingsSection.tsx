@@ -2,65 +2,69 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 
-type Category = "tech" | "security" | "society";
+type Category = "TECH" | "SECURITY" | "SOCIETY";
 
-type Briefing = {
+type NewsItem = {
   id: string;
-  category: Category;
   title: string;
   summary: string | null;
-  source_name: string | null;
+  topics: string[] | null;
   source_url: string | null;
-  image_url: string | null;
-  published_date: string | null;
-  created_at: string | null;
+  published_at: string | null;
+  created_at?: string | null;
 };
 
 const CATEGORY_META: Record<Category, { label: string; classes: string }> = {
-  tech: {
-    label: "TECH",
-    classes: "bg-blue-100 text-blue-700 ring-1 ring-blue-200",
-  },
-  security: {
-    label: "SECURITY",
-    classes: "bg-amber-100 text-amber-800 ring-1 ring-amber-200",
-  },
-  society: {
-    label: "SOCIETY",
-    classes: "bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200",
-  },
+  TECH: { label: "TECH", classes: "bg-blue-100 text-blue-700 ring-1 ring-blue-200" },
+  SECURITY: { label: "SECURITY", classes: "bg-amber-100 text-amber-800 ring-1 ring-amber-200" },
+  SOCIETY: { label: "SOCIETY", classes: "bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200" },
 };
 
-const CATEGORIES: Category[] = ["tech", "security", "society"];
+const CATEGORIES: Category[] = ["TECH", "SECURITY", "SOCIETY"];
 
-const formatDate = (iso: string | null) => {
-  if (!iso) return "";
+const getCategory = (item: NewsItem): Category => {
+  const t = (item.topics ?? []).map((x) => x.toUpperCase());
+  if (t.includes("TECH")) return "TECH";
+  if (t.includes("SECURITY")) return "SECURITY";
+  if (t.includes("SOCIETY")) return "SOCIETY";
+  return "TECH";
+};
+
+const getDomain = (url: string | null) => {
+  if (!url) return "";
   try {
-    return new Date(iso).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
+    return new URL(url).hostname.replace(/^www\./, "");
   } catch {
     return "";
   }
 };
 
-const CategoryBadge = ({ category }: { category: Category }) => {
-  const meta = CATEGORY_META[category];
+const relativeTime = (iso: string | null) => {
+  if (!iso) return "";
+  const diff = Date.now() - new Date(iso).getTime();
+  const min = Math.round(diff / 60000);
+  if (min < 1) return "just now";
+  if (min < 60) return `${min} minute${min === 1 ? "" : "s"} ago`;
+  const h = Math.round(min / 60);
+  if (h < 24) return `${h} hour${h === 1 ? "" : "s"} ago`;
+  const d = Math.round(h / 24);
+  if (d < 30) return `${d} day${d === 1 ? "" : "s"} ago`;
+  const mo = Math.round(d / 30);
+  return `${mo} month${mo === 1 ? "" : "s"} ago`;
+};
+
+const Badge = ({ category }: { category: Category }) => {
+  const m = CATEGORY_META[category];
   return (
-    <span
-      className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-wider ${meta.classes}`}
-    >
-      {meta.label}
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-wider ${m.classes}`}>
+      {m.label}
     </span>
   );
 };
 
 const SkeletonCard = () => (
-  <div className="rounded-2xl border border-border bg-card p-6 animate-pulse">
+  <div className="rounded-2xl border border-border bg-card p-6 animate-pulse h-full">
     <div className="h-6 w-20 bg-muted rounded-full mb-4" />
-    <div className="aspect-video w-full bg-muted rounded-xl mb-4" />
     <div className="h-5 w-5/6 bg-muted rounded mb-2" />
     <div className="h-5 w-3/4 bg-muted rounded mb-4" />
     <div className="h-3 w-full bg-muted rounded mb-1.5" />
@@ -69,124 +73,89 @@ const SkeletonCard = () => (
   </div>
 );
 
-const PlaceholderCard = ({ category }: { category: Category }) => (
-  <div className="rounded-2xl border border-border bg-card p-6 flex flex-col h-full">
-    <div className="mb-4">
-      <CategoryBadge category={category} />
-    </div>
-    <h3 className="font-heading font-bold text-xl text-foreground mb-2">
-      Briefing coming soon
-    </h3>
-    <p className="text-sm text-muted-foreground leading-relaxed">
-      Curated content will appear here shortly.
-    </p>
-  </div>
-);
-
-const BriefingCard = ({ briefing }: { briefing: Briefing }) => {
-  const card = (
-    <div className="group rounded-2xl border border-border bg-card overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl flex flex-col h-full">
-      {briefing.image_url && (
-        <div className="aspect-video w-full overflow-hidden bg-muted">
-          <img
-            src={briefing.image_url}
-            alt={briefing.title}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
-          />
-        </div>
-      )}
-      <div className="p-6 flex flex-col flex-1">
-        <div className="mb-3">
-          <CategoryBadge category={briefing.category} />
-        </div>
-        <h3
-          className="font-heading font-bold text-xl text-foreground mb-2 leading-snug overflow-hidden"
-          style={{
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-          }}
+const Card = ({ item }: { item: NewsItem }) => {
+  const cat = getCategory(item);
+  const inner = (
+    <div className="group rounded-2xl border border-border bg-card p-6 flex flex-col h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+      <div className="mb-3"><Badge category={cat} /></div>
+      <h3
+        className="font-heading font-bold text-xl text-foreground mb-2 leading-snug overflow-hidden"
+        style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}
+      >
+        {item.title}
+      </h3>
+      {item.summary && (
+        <p
+          className="text-sm text-muted-foreground leading-relaxed mb-5 overflow-hidden"
+          style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}
         >
-          {briefing.title}
-        </h3>
-        {briefing.summary && (
-          <p
-            className="text-sm text-muted-foreground leading-relaxed mb-5 overflow-hidden"
-            style={{
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: "vertical",
-            }}
-          >
-            {briefing.summary}
-          </p>
-        )}
-        <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
-          <span className="truncate max-w-[60%]">{briefing.source_name}</span>
-          <span>{formatDate(briefing.published_date || briefing.created_at)}</span>
-        </div>
+          {item.summary}
+        </p>
+      )}
+      <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
+        <span className="truncate max-w-[60%]">{getDomain(item.source_url)}</span>
+        <span>{relativeTime(item.published_at)}</span>
       </div>
     </div>
   );
-
-  if (!briefing.source_url) return card;
-
+  if (!item.source_url) return inner;
   return (
     <a
-      href={briefing.source_url}
+      href={item.source_url}
       target="_blank"
       rel="noopener noreferrer"
       className="block h-full focus:outline-none focus:ring-2 focus:ring-primary rounded-2xl"
     >
-      {card}
+      {inner}
     </a>
   );
 };
 
 const AIBriefingsSection = () => {
-  const [byCategory, setByCategory] = useState<Record<Category, Briefing | null>>({
-    tech: null,
-    security: null,
-    society: null,
-  });
+  const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [lastRefresh, setLastRefresh] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
+
+    const loadFromDb = async () => {
+      const picks: NewsItem[] = [];
+      for (const cat of CATEGORIES) {
+        const { data } = await supabase
+          .from("ai_news")
+          .select("*")
+          .contains("topics", [cat])
+          .order("published_at", { ascending: false })
+          .limit(2);
+        if (data) picks.push(...(data as NewsItem[]));
+      }
+      const { data: newest } = await supabase
+        .from("ai_news")
+        .select("created_at")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (!cancelled) {
+        setItems(picks);
+        setLastRefresh((newest as { created_at?: string } | null)?.created_at ?? null);
+      }
+    };
+
     (async () => {
       try {
-        const results = await Promise.all(
-          CATEGORIES.map((cat) =>
-            supabase
-              .from("ai_briefings")
-              .select("*")
-              .eq("category", cat)
-              .order("published_date", { ascending: false })
-              .order("created_at", { ascending: false })
-              .limit(1)
-              .maybeSingle()
-          )
-        );
-        if (cancelled) return;
-        const next: Record<Category, Briefing | null> = { tech: null, security: null, society: null };
-        CATEGORIES.forEach((cat, i) => {
-          const { data, error } = results[i];
-          if (!error && data) next[cat] = data as Briefing;
-        });
-        setByCategory(next);
+        await supabase.functions.invoke("fetch-ai-news", { body: {} });
       } catch {
-        // silent fallback to placeholders
+        // ignore — fall back to whatever's in DB
+      }
+      try {
+        await loadFromDb();
       } finally {
         if (!cancelled) setLoading(false);
       }
     })();
-    return () => {
-      cancelled = true;
-    };
+
+    return () => { cancelled = true; };
   }, []);
 
   return (
@@ -195,35 +164,28 @@ const AIBriefingsSection = () => {
         <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-4 text-center">
           Stay Informed
         </p>
-        <h2 className="text-3xl md:text-5xl font-heading font-bold text-foreground mb-6 text-center">
+        <h2 className="text-3xl md:text-5xl font-heading font-bold text-foreground mb-4 text-center">
           Latest AI Briefings
         </h2>
-        <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-16">
-          Curated civic AI intelligence — updated continuously.
+        <p className="text-sm text-muted-foreground text-center mb-12">
+          Updated automatically{lastRefresh ? ` · Last refresh: ${relativeTime(lastRefresh)}` : ""}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading
-            ? CATEGORIES.map((c) => <SkeletonCard key={c} />)
-            : CATEGORIES.map((cat, i) => {
-                const briefing = byCategory[cat];
-                return (
-                  <motion.div
-                    key={cat}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
-                    className="h-full"
-                  >
-                    {briefing ? (
-                      <BriefingCard briefing={briefing} />
-                    ) : (
-                      <PlaceholderCard category={cat} />
-                    )}
-                  </motion.div>
-                );
-              })}
+            ? [0, 1, 2].map((i) => <SkeletonCard key={i} />)
+            : items.slice(0, 6).map((item, i) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
+                  className="h-full"
+                >
+                  <Card item={item} />
+                </motion.div>
+              ))}
         </div>
       </div>
     </section>
