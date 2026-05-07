@@ -23,10 +23,10 @@ const CATEGORY_META: Record<Category, { label: string; classes: string }> = {
 const CATEGORIES: Category[] = ["TECH", "SECURITY", "SOCIETY"];
 
 const getCategory = (item: NewsItem): Category => {
-  const t = (item.topics ?? []).map((x) => x.toUpperCase());
-  if (t.includes("TECH")) return "TECH";
-  if (t.includes("SECURITY")) return "SECURITY";
-  if (t.includes("SOCIETY")) return "SOCIETY";
+  const t = (item.topics ?? []).join(" ").toUpperCase();
+  if (t.includes("SECURITY") || t.includes("SAFETY") || t.includes("FRONTIER") || t.includes("AGI")) return "SECURITY";
+  if (t.includes("SOCIETY") || t.includes("EDUCATION") || t.includes("WORK") || t.includes("ETHICS") || t.includes("JOBS")) return "SOCIETY";
+  if (t.includes("TECH") || t.includes("SOVEREIGNTY") || t.includes("POLICY") || t.includes("REGULATION")) return "TECH";
   return "TECH";
 };
 
@@ -129,6 +129,23 @@ const AIBriefingsSection = () => {
           .order("published_at", { ascending: false })
           .limit(2);
         if (data) picks.push(...(data as NewsItem[]));
+      }
+      // Fallback: if strict category filter returned nothing, classify
+      // recent articles by their existing topics so the section is never empty.
+      if (picks.length === 0) {
+        const { data: recent } = await supabase
+          .from("ai_news")
+          .select("*")
+          .order("published_at", { ascending: false })
+          .limit(30);
+        if (recent) {
+          const buckets: Record<Category, NewsItem[]> = { TECH: [], SECURITY: [], SOCIETY: [] };
+          for (const r of recent as NewsItem[]) {
+            const c = getCategory(r);
+            if (buckets[c].length < 2) buckets[c].push(r);
+          }
+          picks.push(...buckets.TECH, ...buckets.SECURITY, ...buckets.SOCIETY);
+        }
       }
       const { data: newest } = await supabase
         .from("ai_news")
