@@ -78,25 +78,41 @@ const AIBriefingsSection = () => {
     let cancelled = false;
 
     (async () => {
-      try {
-        await supabase.functions.invoke("fetch-ai-news", { body: {} });
-      } catch {
-        // ignore
+      const loadLatest = async () => {
+        const [{ data }, { data: newest }] = await Promise.all([
+          supabase
+            .from("ai_news")
+            .select("*")
+            .order("published_at", { ascending: false })
+            .limit(6),
+          supabase
+            .from("ai_news")
+            .select("created_at")
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle(),
+        ]);
+
+        return {
+          items: (data ?? []) as NewsItem[],
+          refreshedAt: (newest as { created_at?: string } | null)?.created_at ?? null,
+        };
+      };
+
+      let latest = await loadLatest();
+
+      if (latest.items.length === 0) {
+        try {
+          await supabase.functions.invoke("fetch-ai-news", { body: {} });
+          latest = await loadLatest();
+        } catch {
+          // keep empty state
+        }
       }
-      const { data } = await supabase
-        .from("ai_news")
-        .select("*")
-        .order("published_at", { ascending: false })
-        .limit(6);
-      const { data: newest } = await supabase
-        .from("ai_news")
-        .select("created_at")
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
+
       if (!cancelled) {
-        setItems((data ?? []) as NewsItem[]);
-        setLastRefresh((newest as { created_at?: string } | null)?.created_at ?? null);
+        setItems(latest.items);
+        setLastRefresh(latest.refreshedAt);
         setLoading(false);
       }
     })();
@@ -122,7 +138,7 @@ const AIBriefingsSection = () => {
             News loading — please refresh in a moment.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {loading
               ? [0, 1, 2, 3, 4, 5].map((i) => <SkeletonCard key={i} />)
               : items.map((item, i) => (
