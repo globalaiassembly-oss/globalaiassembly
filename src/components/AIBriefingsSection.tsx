@@ -8,6 +8,7 @@ type NewsItem = {
   summary: string | null;
   topics: string[] | null;
   source_url: string | null;
+  source_name?: string | null;
   published_at: string | null;
   created_at?: string | null;
 };
@@ -19,6 +20,29 @@ const getDomain = (url: string | null) => {
   } catch {
     return "";
   }
+};
+
+const stripHtml = (value: string) => value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
+
+const loadLiveAiNews = async (): Promise<NewsItem[]> => {
+  const rssUrl = "https://news.google.com/rss/search?q=artificial%20intelligence%20when:7d&hl=en-US&gl=US&ceid=US:en";
+  const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`);
+  const data = await response.json();
+
+  return (data.items ?? []).slice(0, 6).map((item: { title: string; description?: string; link: string; pubDate: string }, index: number) => {
+    const [headline, source] = item.title.split(/ - (?=[^-]+$)/);
+
+    return {
+      id: `live-${index}-${item.link}`,
+      title: headline || item.title,
+      summary: item.description ? stripHtml(item.description) : null,
+      topics: ["AI"],
+      source_url: item.link,
+      source_name: source ?? getDomain(item.link),
+      published_at: item.pubDate,
+      created_at: new Date().toISOString(),
+    };
+  });
 };
 
 const relativeTime = (iso: string | null) => {
@@ -62,7 +86,7 @@ const Card = ({ item }: { item: NewsItem }) => (
         </p>
       )}
       <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
-        <span className="truncate max-w-[60%]">{getDomain(item.source_url)}</span>
+        <span className="truncate max-w-[60%]">{item.source_name ?? getDomain(item.source_url)}</span>
         <span>{relativeTime(item.published_at)}</span>
       </div>
     </div>
@@ -105,6 +129,15 @@ const AIBriefingsSection = () => {
         try {
           await supabase.functions.invoke("fetch-ai-news", { body: {} });
           latest = await loadLatest();
+        } catch {
+          // keep empty state
+        }
+      }
+
+      if (latest.items.length === 0) {
+        try {
+          const liveItems = await loadLiveAiNews();
+          latest = { items: liveItems, refreshedAt: new Date().toISOString() };
         } catch {
           // keep empty state
         }
